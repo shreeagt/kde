@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -90,25 +91,28 @@ fun OrderItem(order: Order, onAccept: (Order) -> Unit, onReject: (Order) -> Unit
 
             Text(text = order.orderName)
             Text(text = "qnt : ${order.qnt}")
+            if(order.status == OrderStatus.ACCEPT){
+                Text(text = "Done")
+            }
             if (order.status == OrderStatus.NOT_HANDELED) {
-                Row {
-                    IconButton(
+                Row { 
+                    Button(
                         onClick = { onReject(order) },
-                        colors = IconButtonDefaults.iconButtonColors(
+                        colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Red,
                             contentColor = Color.White
                         )
                     ) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = "")
+                        Text(text = "Cancel")
                     }
-                    IconButton(
+                    Button(
                         onClick = { onAccept(order) },
-                        colors = IconButtonDefaults.iconButtonColors(
+                        colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Green.copy(green = 0.5f),
                             contentColor = Color.White
                         )
                     ) {
-                        Icon(imageVector = Icons.Default.Done, contentDescription = "")
+                        Text(text = "Process")
                     }
                 }
             }
